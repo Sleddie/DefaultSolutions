@@ -1,4 +1,6 @@
-﻿namespace DefaultSolutions
+﻿using System.Text.Json;
+
+namespace DefaultSolutions
 {
     public static class FileExplore
     {
@@ -50,6 +52,13 @@
             }
 
             return OpenAndReadText(sourceFile.FullName);
+        }
+
+        public static T? OpenAndReadJson<T>(string? sourceFilePath)
+        {
+            string configText = FileExplore.OpenAndReadText(sourceFilePath);
+            T? config = JsonSerializer.Deserialize<T>(configText);
+            return config;
         }
     }
 }
